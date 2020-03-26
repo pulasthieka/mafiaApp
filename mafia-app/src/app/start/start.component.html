@@ -1,0 +1,17 @@
+<div *ngIf="showPlayerList">
+    <p> connect to the url/{{id}}</p>
+    <form *ngIf="!nameChosen" (keyup.enter)="createPlayer(playerName.value)">
+        <label>
+            Enter Name: 
+            <input type="text" [formControl]="playerName">
+        </label>
+        <button (click)="createPlayer(playerName.value)">Join</button>
+    </form>
+    <p *ngIf="nameChosen"> Your Name : {{playerId}}
+    </p>
+    <button (click)="startGame()">Start Game</button>
+    <h2>Connected Players</h2>
+    <ul>
+        <li *ngFor = "let player of players">{{player.name}}</li>
+    </ul>
+</div>

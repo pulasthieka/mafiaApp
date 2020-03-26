@@ -1,0 +1,6 @@
+
+<div>
+    <button *ngFor="let y of players" (click)="vote(y.name)">{{y.name}}</button>
+</div>
+
+<p *ngFor="let item of votesArray">{{item[0]}} : {{item[1]}}</p>
