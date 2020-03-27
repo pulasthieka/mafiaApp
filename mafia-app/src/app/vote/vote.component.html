@@ -1,6 +1,22 @@
+<div class="row">
+    <div class="col-6">
+        <mat-selection-list>
+            <h2 matSubheader> Vote </h2>
+            <mat-list-option *ngFor="let item of players" (click)="vote(item.name)" list-item-active>
+                <mat-icon matListIcon> face </mat-icon>
+                {{item.name}}
+            </mat-list-option>
 
-<div>
-    <button *ngFor="let y of players" (click)="vote(y.name)">{{y.name}}</button>
+        </mat-selection-list>
+    </div>
+    <div class="col-6">
+        <mat-list>
+            <mat-list-item *ngFor="let item of votesArray">
+                <h3 matLine>{{item[1]}}</h3>
+                <p matLine>
+                    <span> {{item[0]}} says to hang {{item[1]}} </span>
+                </p>
+            </mat-list-item>
+        </mat-list>
+    </div>
 </div>
-
-<p *ngFor="let item of votesArray">{{item[0]}} : {{item[1]}}</p>

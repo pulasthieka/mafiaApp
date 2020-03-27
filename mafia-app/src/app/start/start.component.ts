@@ -32,10 +32,10 @@ export class StartComponent implements OnInit {
       //   window.sessionStorage.setItem('gameId',this.id)
       // }
       this.showPlayerList = true;
-      // if (window.sessionStorage.getItem('playerName')){
-      //   this.playerId = window.sessionSt orage.getItem('playerName');
-      //   this.nameChosen = true;
-      // }
+      if (window.sessionStorage.getItem('playerName')){
+        this.playerId = window.sessionStorage.getItem('playerName');
+        this.nameChosen = true;
+      }
     }
     else{
       this.router.navigate(['new/'])

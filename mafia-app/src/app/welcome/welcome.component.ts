@@ -15,13 +15,14 @@ export class WelcomeComponent implements OnInit {
   }
 
   newgame(){
+    window.sessionStorage.clear();
     this.api.newgame().subscribe(res => {
       window.sessionStorage.setItem('gameId', res['id']);
       let id = res['id'] 
       this.api.id = id ;
       console.log('New Game Created',id);
       this.router.navigate([`start/${id}`])
-    });;
+    });
     
   }
 

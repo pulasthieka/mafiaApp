@@ -1,11 +1,20 @@
-<p *ngFor="let msg of messages">{{msg.username}} : {{msg.message}}</p> 
-<!-- <p>add ngIf to right align if username == playername</p> -->
-<!-- <form (keydown)="keyDowntoSend($event)"> -->
-<form #chatbox (keyup.enter)="sendChatMessage(msg.value)">
-    <label>
-        Message: <input type="text" [formControl]="msg" value="{{msg.value}}" >
-    </label>
-    <!-- <p>
-        <button (click)="sendChatMessage(msg.value)">Send Message</button>
-    </p> -->
+<main class="msger-chat">
+    <div *ngFor="let msg of messages" [ngClass]="(msg.username != player)?'left-msg':'right-msg'" class="msg ">
+
+        <div class="msg-bubble">
+            <div class="msg-info">
+                <div class="msg-info-name">{{msg.username}}</div>
+                <!-- <div class="msg-info-time">12:45</div> -->
+            </div>
+            {{msg.message}}
+            <div class="msg-text">
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- <form (keyup.enter)="sendChatMessage(msg.value)""> -->
+<form class="msger-inputarea">
+    <input type="text" [formControl]="msg" class="msger-input" placeholder="Enter your message...">
+    <button type="submit" (click)="sendChatMessage(msg.value)" class="msger-send-btn">Send</button>
 </form>

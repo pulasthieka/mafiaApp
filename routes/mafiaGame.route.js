@@ -103,11 +103,14 @@ gameRoutes.route('/get/:id').get(function (req, res) {
 gameRoutes.route('/getRole').get(function (req, res) {
     // console.log('Backend Get')
     id = req.query.id;
-    name = req.query.name
-    console.log(name,id," name")
-    Game.find(( { 'name': id }, { players: { $elemMatch: { 'name': "vxbxc" } } } )).then((player)=>{
-        // console.log(player,"players");
-    })
+    name1 = req.query.name
+    console.log(name1,id," name")
+    Game.find({ name: id }, { players: { $elemMatch: { name: name1 } } }).then(
+        player => {
+          res.json(player);
+          console.log(player, "players");
+        }
+      );
 });
 
 // Defined delete | remove | destroy route
