@@ -69,6 +69,17 @@ export class WebsocketService {
     });
   };
 
+  kill(player) {
+    this.socket.emit("kill", player);
+  }
+  getKill = () => {
+    return Observable.create(observer => {
+      this.socket.on("kill", message => {
+        observer.next(message);
+      });
+    });
+  };
+
   destroy() {
     this.socket.close();
   }

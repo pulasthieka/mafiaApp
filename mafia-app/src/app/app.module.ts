@@ -19,6 +19,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRadioModule } from "@angular/material/radio";
+import { NarratorComponent } from './narrator/narrator.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatRadioModule } from "@angular/material/radio";
     VoteComponent,
     StartComponent,
     MainComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    NarratorComponent
   ],
   imports: [
     BrowserModule,

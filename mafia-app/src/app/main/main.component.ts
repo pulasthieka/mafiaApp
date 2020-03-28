@@ -12,10 +12,14 @@ export class MainComponent implements OnInit {
   name: string;
   id: string;
   mafia = false;
+  narrator = false;
 
   constructor(private api: ApiService) {}
 
   ngOnInit() {
+    if (window.sessionStorage.getItem("narrator")) {
+      this.narrator = true;
+    }
     this.id = window.sessionStorage.getItem("gameId");
     this.name = window.sessionStorage.getItem("playerName");
     this.api.getRole(this.id, this.name).subscribe(res => {

@@ -1,0 +1,4 @@
+<p>narrator works!</p>
+<button *ngFor="let player of players" mat-button (click)="kill(player.name)">
+    Kill {{player.name}}
+</button>

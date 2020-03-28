@@ -14,6 +14,10 @@ export class ApiService {
   playersObservable = this.players.subscribe();
   constructor(private http: HttpClient, private socket: WebsocketService) {}
 
+  kill = this.socket.getKill().subscribe(res => {
+    this.getPlayers(this.id);
+  });
+
   newgame() {
     return this.http.post(`${this.uri}/newGame`, {});
   }
@@ -38,6 +42,14 @@ export class ApiService {
     this.http.post(`${this.uri}/start/${id}`, {}).subscribe(res => {
       this.socket.updateRoom();
       this.players.next(res);
+      console.log("Roles assigned", res);
+    });
+  }
+
+  killplayer(id = this.id, player) {
+    this.http.post(`${this.uri}/kill/${id}&${player}`, {}).subscribe(res => {
+      // this.socket.killPlayer();
+      this.socket.kill(player);
       console.log("Roles assigned", res);
     });
   }

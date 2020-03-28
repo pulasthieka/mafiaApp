@@ -70,6 +70,9 @@ socket.on("connection", client => {
   client.on("update", msg => {
     socket.emit("update", msg);
   });
+  client.on("kill", msg => {
+    socket.emit("kill", msg);
+  });
   client.on("disconnect", () => {
     console.log("Disconnected");
   });
@@ -77,5 +80,5 @@ socket.on("connection", client => {
 
 //
 server.listen(process.env.PORT || 8080, () => {
-  console.log("Node server running on port 9000");
+  console.log("Node server running on port 8080");
 });
