@@ -14,6 +14,7 @@ Open two terminals
 1: nodemon server.js 
     or node server.js
 
-2: ng serve
+2: cd mafia-app
+    ng serve
 
 Navigate to localhost:4200
