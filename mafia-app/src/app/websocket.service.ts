@@ -6,7 +6,7 @@ import * as io from "socket.io-client";
   providedIn: "root"
 })
 export class WebsocketService {
-  private url = "http://localhost:9000";
+  private url = "http://localhost:8080";
   private socket;
 
   constructor() {

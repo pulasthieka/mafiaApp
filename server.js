@@ -76,6 +76,6 @@ socket.on("connection", client => {
 });
 
 //
-server.listen(9000, () => {
+server.listen(process.env.PORT || 8080, () => {
   console.log("Node server running on port 9000");
 });

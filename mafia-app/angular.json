@@ -18,16 +18,8 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-<<<<<<< Updated upstream
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-=======
-            "aot": false,
             "assets": ["src/favicon.ico", "src/assets"],
->>>>>>> Stashed changes
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
