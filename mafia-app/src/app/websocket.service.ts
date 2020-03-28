@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import * as io from "socket.io-client";
+import { environment } from "../environments/environment";
 
 @Injectable({
   providedIn: "root"
 })
 export class WebsocketService {
-  private url = "http://localhost:8080";
+  private url = environment.baseUrl;
   private socket;
 
   constructor() {

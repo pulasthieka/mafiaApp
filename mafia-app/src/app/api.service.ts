@@ -2,12 +2,13 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { WebsocketService } from "./websocket.service";
+import { environment } from "../environments/environment";
 
 @Injectable({
   providedIn: "root"
 })
 export class ApiService {
-  uri = "http://localhost:8080/mafia";
+  uri = environment.baseUrl + "mafia";
   id: string;
   players = new Subject();
   playersObservable = this.players.subscribe();
