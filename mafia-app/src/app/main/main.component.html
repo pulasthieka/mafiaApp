@@ -1,9 +1,27 @@
 <h1>Your Role : {{role}} </h1>
 Night : {{night}}
 <div class="row">
-    <div class="col-6">
+    <div class="col-6" [ngClass]="{
+        'hidden': night
+     }">
         <app-chat></app-chat>
     </div>
+    <div class="col-6" *ngIf="mafia" [ngClass]="{
+        'hidden': !night
+     }">
+        <app-mafia></app-mafia>
+    </div>
+    <div class="col-6" *ngIf="doctor" [ngClass]="{
+        'hidden': !night
+     }">
+        <app-doctor></app-doctor>
+    </div>
+    <div class="col-6" *ngIf="mosquito" [ngClass]="{
+        'hidden': !night
+     }">
+        <app-mosquito></app-mosquito>
+    </div>
+
     <div *ngIf=narrator>
         <app-narrator></app-narrator>
     </div>

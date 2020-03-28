@@ -20,6 +20,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRadioModule } from "@angular/material/radio";
 import { NarratorComponent } from './narrator/narrator.component';
+import { DoctorComponent } from './doctor/doctor.component';
+import { MosquitoComponent } from './mosquito/mosquito.component';
+import { MafiaComponent } from './mafia/mafia.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { NarratorComponent } from './narrator/narrator.component';
     StartComponent,
     MainComponent,
     WelcomeComponent,
-    NarratorComponent
+    NarratorComponent,
+    DoctorComponent,
+    MosquitoComponent,
+    MafiaComponent
   ],
   imports: [
     BrowserModule,

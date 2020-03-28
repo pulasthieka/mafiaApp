@@ -51,6 +51,9 @@ gameRoutes.route("/start/:id").post(function(req, res) {
     if (game.settings.jester) {
       roles.push("jester");
     }
+    if (game.settings.mosquito) {
+      roles.push("doctor");
+    }
     if (game.settings.doctor) {
       roles.push("doctor");
     }

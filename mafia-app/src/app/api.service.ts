@@ -15,6 +15,7 @@ export class ApiService {
   constructor(private http: HttpClient, private socket: WebsocketService) {}
 
   newgame() {
+    console.log("api/newgame");
     return this.http.post(`${this.uri}/newGame`, {});
   }
   newPlayer(player, id = this.id) {

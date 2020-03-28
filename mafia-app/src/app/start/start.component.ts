@@ -18,13 +18,12 @@ import { WebsocketService } from "../websocket.service";
 export class StartComponent implements OnInit {
   showPlayerList = false;
   id: string;
+  url: string;
   nameChosen = false;
   playerId: string;
   playerName = new FormControl();
   players = [];
-
   settingsForm: FormGroup;
-  settings: any[];
 
   constructor(
     private api: ApiService,
@@ -36,6 +35,7 @@ export class StartComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.route.snapshot.paramMap.get("id"));
+    this.url = document.URL;
     // window.sessionStorage.clear();
     if (this.route.snapshot.paramMap.get("id")) {
       this.id = this.route.snapshot.paramMap.get("id");
@@ -46,8 +46,7 @@ export class StartComponent implements OnInit {
           // add timer
           this.router.navigate(["new/"]);
         }
-        this.settings = res["settings"];
-        console.log(this.settings);
+        this.settingsForm.patchValue(res["settings"]);
       });
 
       this.showPlayerList = true;
@@ -63,12 +62,16 @@ export class StartComponent implements OnInit {
     });
     this.api.getPlayers(this.id);
 
+    this.socket.getUpdates().subscribe(() => {
+      this.router.navigate([`game/${this.id}`]);
+    });
     // monitor player while joining uses the same method as removal during killing
     this.socket.getKill().subscribe(res => {
       this.api.getPlayers(this.id);
     });
     this.settingsForm = this.formBuilder.group({
       jester: [null, Validators.required],
+      mosquito: [null, Validators.required],
       doctor: [null, Validators.required],
       mafia: [null, Validators.required]
     });
@@ -91,11 +94,9 @@ export class StartComponent implements OnInit {
     // this.playerId = window.sessionStorage.getItem('playerName');
   }
 
-  startGame() {
-    this.api.start(this.id, this.settings);
+  startGame(data: NgForm) {
+    console.log(data);
+    this.api.start(this.id, data);
     console.log("Start pressed");
-    this.socket.getUpdates().subscribe(() => {
-      this.router.navigate([`game/${this.id}`]);
-    });
   }
 }

@@ -1,5 +1,6 @@
 <div *ngIf="showPlayerList">
-    <p> connect to the url/{{id}}</p>
+    <p> Share the following link for others to join </p>
+    <h1>{{url}}</h1>
     <form *ngIf="!nameChosen" (keyup.enter)="createPlayer(playerName.value)">
         <label>
             Enter Name:
@@ -9,14 +10,17 @@
     </form>
     <p *ngIf="nameChosen"> Your Name : {{playerId}}
     </p>
-    <button mat-button (click)="startGame()">Start Game</button>
-    <form [formGroup]="settingsForm" novalidate>
+
+    <form [formGroup]="settingsForm" novalidate (ngSubmit)="startGame(settingsForm.value)">
         <label>Joker</label>
-        <input type="text" class="form-control" placeholder="Product Name" required formControlName="jester">
+        <input type="checkbox" class="form-control" formControlName="jester">
+        <label>Mosquito</label>
+        <input type="checkbox" class="form-control" formControlName="mosquito">
         <label>Doctor</label>
-        <input type="text" class="form-control" placeholder="Product Name" required formControlName="doctor">
+        <input type="checkbox" class="form-control" formControlName="doctor">
         <label>Mafia</label>
-        <input type="text" class="form-control" placeholder="Product Name" required formControlName="mafia">
+        <input type="number" class="form-control" placeholder="Number" required formControlName="mafia">
+        <button mat-button type="submit">Start Game</button>
     </form>
     <h2>Connected Players</h2>
     <ul>

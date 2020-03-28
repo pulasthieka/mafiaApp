@@ -18,19 +18,6 @@ export class WebsocketService {
     this.socket.emit("chat", msg);
     console.log("service message :" + msg);
   }
-
-  sendMafiaMessage(msg: string) {
-    this.socket.emit("mafia", msg);
-  }
-
-  getServerMessages = () => {
-    return Observable.create(observer => {
-      this.socket.on("server", message => {
-        observer.next(message);
-      });
-    });
-  };
-
   getChatMessages = () => {
     return Observable.create(observer => {
       this.socket.on("chat", message => {
@@ -39,9 +26,20 @@ export class WebsocketService {
     });
   };
 
+  sendMafiaMessage(msg: string) {
+    this.socket.emit("mafia", msg);
+  }
   getMafiaMessages = () => {
     return Observable.create(observer => {
       this.socket.on("mafia", message => {
+        observer.next(message);
+      });
+    });
+  };
+
+  getServerMessages = () => {
+    return Observable.create(observer => {
+      this.socket.on("server", message => {
         observer.next(message);
       });
     });
