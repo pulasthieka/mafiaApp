@@ -4,6 +4,7 @@
   "description": "A simple game for playing Mafia Game",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "npm test"
   },
   "author": "Pulasthi",
