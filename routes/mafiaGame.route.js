@@ -42,10 +42,11 @@ gameRoutes.route("/add/:id").post(function(req, res) {
 
 gameRoutes.route("/start/:id").post(function(req, res) {
   let id = req.params.id;
-  console.log("Assignment Started");
+  console.log("Assignment Started", req.body);
   // Game.updateOne({'name':id},{$set: { "players" : req.body }} )
   Game.findOne({ name: id }, function(err, game) {
     game.started = true;
+    game.settings = req.body;
     roles = [];
     if (game.settings.jester) {
       roles.push("jester");
@@ -83,7 +84,8 @@ gameRoutes.route("/kill/:id&:player").post(function(req, res) {
     {
       $set: { "players.$.dead": true }
     }
-  ).then(res => {
+  ).then(player => {
+    res.json("Killed: " + player);
     // console.log(res);
   });
 });

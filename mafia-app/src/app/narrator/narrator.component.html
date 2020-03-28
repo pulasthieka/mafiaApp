@@ -1,4 +1,27 @@
-<p>narrator works!</p>
+<!-- <p>narrator works!</p>
 <button *ngFor="let player of players" mat-button (click)="kill(player.name)">
     Kill {{player.name}}
-</button>
+</button> -->
+<div class="row">
+    <div class="col-6">
+        <mat-nav-list>
+            <h2 matSubheader> Execute </h2>
+            <mat-list-item *ngFor="let item of players" (click)="kill(item.name)">
+                <mat-icon matListIcon> highlight_off </mat-icon>
+                Kill {{item.name}}
+            </mat-list-item>
+
+        </mat-nav-list>
+    </div>
+    <div class="col-6">
+        <mat-nav-list>
+            <h2 matSubheader> Roles </h2>
+            <mat-list-item *ngFor="let item of roles">
+                <mat-icon *ngIf="item.dead" matListIcon> sentiment_very_dissatisfied </mat-icon>
+                <mat-icon *ngIf="!item.dead" matListIcon> sentiment_satisfied </mat-icon>
+                {{item.name}} : {{item.role}}
+            </mat-list-item>
+
+        </mat-nav-list>
+    </div>
+</div>

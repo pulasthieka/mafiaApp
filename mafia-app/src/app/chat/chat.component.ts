@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { WebsocketService } from "../websocket.service";
 import { FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
+import { ApiService } from "../api.service";
 
 @Component({
   selector: "app-chat",
@@ -12,14 +13,22 @@ export class ChatComponent implements OnInit {
   // @ViewChild('chatbox') formValues;
   msg = new FormControl("");
   messages = [];
+  disabled = false;
   player: string;
-  constructor(private socket: WebsocketService, private router: Router) {}
+  constructor(
+    private socket: WebsocketService,
+    private router: Router,
+    private api: ApiService
+  ) {}
 
   ngOnInit() {
     if (window.sessionStorage) {
       //c heck for webstorage compatibility
       if (window.sessionStorage.getItem("playerName")) {
         this.player = window.sessionStorage.getItem("playerName");
+        this.api.players.subscribe(players => {
+          this.disabled = players.find(el => el.name == this.player)["dead"];
+        });
       } else {
         this.router.navigate(["start"]);
         // redirect to start screen

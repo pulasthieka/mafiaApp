@@ -1,12 +1,12 @@
 <h1>Your Role : {{role}}</h1>
-<div *ngIf=narrator>
-    <app-narrator></app-narrator>
-</div>
 <div class="row">
     <div class="col-6">
         <app-chat></app-chat>
     </div>
-    <div class="col-6">
+    <div *ngIf=narrator>
+        <app-narrator></app-narrator>
+    </div>
+    <div *ngIf="!narrator && !disabled" class="col-6">
         <app-vote></app-vote>
     </div>
 </div>

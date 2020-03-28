@@ -47,11 +47,6 @@ var server = require("http").createServer(app);
 const socket = io(server);
 //create an event listener
 
-app.get("/*", function(req, res) {
-  res.sendFile(path.join(__dirname + "/mafia-app/dist/mafia-app/index.html"));
-  // res.sendFile(path.join(__dirname+'/forestpin-website/home.html'));
-});
-
 //To listen to messages
 socket.on("connection", client => {
   console.log("user  connected");
@@ -78,7 +73,12 @@ socket.on("connection", client => {
   });
 });
 
-//
+app.get("/*", function(req, res) {
+  res.sendFile(path.join(__dirname + "/mafia-app/dist/mafia-app/index.html"));
+  console.log(__dirname);
+});
+
 server.listen(process.env.PORT || 8080, () => {
+  console.log(process.env.PORT);
   console.log("Node server running on port 8080");
 });

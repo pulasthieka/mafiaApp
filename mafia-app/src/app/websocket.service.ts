@@ -69,7 +69,7 @@ export class WebsocketService {
     });
   };
 
-  kill(player) {
+  kill(player = "") {
     this.socket.emit("kill", player);
   }
   getKill = () => {

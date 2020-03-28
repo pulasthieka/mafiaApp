@@ -10,10 +10,13 @@ export class NarratorComponent implements OnInit {
   constructor(private api: ApiService) {}
   id: string;
   players = [];
+  roles = [];
   ngOnInit() {
     this.id = window.sessionStorage.getItem("gameId");
     this.api.getPlayers(this.id);
     this.api.players.subscribe((list: any[]) => {
+      this.roles = list;
+      console.log(this.roles);
       let alive = [];
       list.forEach(element => {
         if (!element.dead) {
