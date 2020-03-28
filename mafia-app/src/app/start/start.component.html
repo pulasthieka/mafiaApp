@@ -2,16 +2,24 @@
     <p> connect to the url/{{id}}</p>
     <form *ngIf="!nameChosen" (keyup.enter)="createPlayer(playerName.value)">
         <label>
-            Enter Name: 
+            Enter Name:
             <input type="text" [formControl]="playerName">
         </label>
         <button (click)="createPlayer(playerName.value)">Join</button>
     </form>
     <p *ngIf="nameChosen"> Your Name : {{playerId}}
     </p>
-    <button (click)="startGame()">Start Game</button>
+    <button mat-button (click)="startGame()">Start Game</button>
+    <form [formGroup]="settingsForm" novalidate>
+        <label>Joker</label>
+        <input type="text" class="form-control" placeholder="Product Name" required formControlName="jester">
+        <label>Doctor</label>
+        <input type="text" class="form-control" placeholder="Product Name" required formControlName="doctor">
+        <label>Mafia</label>
+        <input type="text" class="form-control" placeholder="Product Name" required formControlName="mafia">
+    </form>
     <h2>Connected Players</h2>
     <ul>
-        <li *ngFor = "let player of players">{{player.name}}</li>
+        <li *ngFor="let player of players">{{player.name}}</li>
     </ul>
 </div>

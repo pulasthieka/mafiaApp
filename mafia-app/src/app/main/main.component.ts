@@ -15,6 +15,7 @@ export class MainComponent implements OnInit {
   mafia = false;
   disabled = false;
   narrator = false;
+  night = false;
 
   constructor(private api: ApiService, private socket: WebsocketService) {}
 
@@ -27,7 +28,14 @@ export class MainComponent implements OnInit {
     this.socket.getKill().subscribe(res => {
       this.api.getPlayers(this.id);
     });
-    this.api.players.subscribe(players => {
+    this.socket.getTurn().subscribe(res => {
+      if (res == "Night") {
+        this.night = true;
+      } else {
+        this.night = false;
+      }
+    });
+    this.api.players.subscribe((players: any[]) => {
       this.disabled = players.find(el => el.name == this.name)["dead"];
     });
     this.api.getRole(this.id, this.name).subscribe(res => {

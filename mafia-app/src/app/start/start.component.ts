@@ -1,7 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../api.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { FormControl, FormGroup } from "@angular/forms";
+import {
+  FormControl,
+  FormBuilder,
+  Validators,
+  NgForm,
+  FormGroup
+} from "@angular/forms";
 import { WebsocketService } from "../websocket.service";
 
 @Component({
@@ -16,14 +22,16 @@ export class StartComponent implements OnInit {
   playerId: string;
   playerName = new FormControl();
   players = [];
-  myFormGroup: FormGroup;
+
+  settingsForm: FormGroup;
   settings: any[];
 
   constructor(
     private api: ApiService,
     private route: ActivatedRoute,
     private socket: WebsocketService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -33,15 +41,12 @@ export class StartComponent implements OnInit {
       this.id = this.route.snapshot.paramMap.get("id");
       window.sessionStorage.setItem("gameId", this.id);
       this.api.getGame(this.id).subscribe(res => {
-        if (res.started) {
+        if (res["started"]) {
           alert("game has started");
           // add timer
           this.router.navigate(["new/"]);
         }
-        this.settings = res.settings;
-        // this.settings.forEach(input_template=>{
-        //   group[input_template.label]=new FormControl('');
-        // })
+        this.settings = res["settings"];
         console.log(this.settings);
       });
 
@@ -61,6 +66,11 @@ export class StartComponent implements OnInit {
     // monitor player while joining uses the same method as removal during killing
     this.socket.getKill().subscribe(res => {
       this.api.getPlayers(this.id);
+    });
+    this.settingsForm = this.formBuilder.group({
+      jester: [null, Validators.required],
+      doctor: [null, Validators.required],
+      mafia: [null, Validators.required]
     });
   }
 

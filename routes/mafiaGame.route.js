@@ -9,7 +9,7 @@ let Game = require("../models/game");
 gameRoutes.route("/newGame").post(function(req, res) {
   let game = new Game(req.body);
   game.name = crypto.randomBytes(10).toString("hex");
-  //   game.started = false;
+  console.log("New Game");
   game
     .save()
     .then(game => {

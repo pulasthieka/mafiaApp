@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../api.service";
+import { WebsocketService } from "../websocket.service";
 
 @Component({
   selector: "app-narrator",
@@ -7,7 +8,7 @@ import { ApiService } from "../api.service";
   styleUrls: ["./narrator.component.css"]
 })
 export class NarratorComponent implements OnInit {
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private socket: WebsocketService) {}
   id: string;
   players = [];
   roles = [];
@@ -29,5 +30,12 @@ export class NarratorComponent implements OnInit {
 
   kill(name) {
     this.api.killplayer(this.id, name);
+  }
+
+  setNightTurn() {
+    this.socket.setTurn("Night");
+  }
+  setDayTurn() {
+    this.socket.setTurn("Day");
   }
 }

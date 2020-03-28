@@ -26,7 +26,7 @@ export class ChatComponent implements OnInit {
       //c heck for webstorage compatibility
       if (window.sessionStorage.getItem("playerName")) {
         this.player = window.sessionStorage.getItem("playerName");
-        this.api.players.subscribe(players => {
+        this.api.players.subscribe((players: any[]) => {
           this.disabled = players.find(el => el.name == this.player)["dead"];
         });
       } else {

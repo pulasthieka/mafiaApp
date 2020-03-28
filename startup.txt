@@ -1,0 +1,19 @@
+install node.js
+install angular cli
+
+clone from git
+
+Startup code
+
+npm install
+cd mafia-app
+npm install 
+npm link webpack
+
+Open two terminals
+1: nodemon server.js 
+    or node server.js
+
+2: ng serve
+
+Navigate to localhost:4200

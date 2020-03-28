@@ -68,6 +68,9 @@ socket.on("connection", client => {
   client.on("kill", msg => {
     socket.emit("kill", msg);
   });
+  client.on("turn", msg => {
+    socket.emit("turn", msg);
+  });
   client.on("disconnect", () => {
     console.log("Disconnected");
   });

@@ -80,6 +80,17 @@ export class WebsocketService {
     });
   };
 
+  setTurn(turn) {
+    this.socket.emit("turn", turn);
+  }
+  getTurn = () => {
+    return Observable.create(observer => {
+      this.socket.on("turn", message => {
+        observer.next(message);
+      });
+    });
+  };
+
   destroy() {
     this.socket.close();
   }
