@@ -1,4 +1,4 @@
-<main class="msger-chat">
+<main class="msger-chat" #scrollMe (scroll)="onScroll()">
     <div *ngFor="let msg of messages" [ngClass]="(msg.username != player)?'left-msg':'right-msg'" class="msg ">
 
         <div class="msg-bubble">

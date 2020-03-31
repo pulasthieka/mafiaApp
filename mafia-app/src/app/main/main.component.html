@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="scrolling-wrapper row" #list>
+    <div class="scrolling-wrapper row" #hscroll>
         <div class="col-md-6 card mx-1">
             <h2 class="text-capitalize">Game Chat</h2>
             <div [ngClass]="{
@@ -17,7 +17,7 @@
              }">
                 <h1>There's nothing to look at sleep tight</h1>
             </div>
-            <button class="btn btn-primary btn-block" (click)="scrollRight(list)">Vote</button>
+            <button class="btn btn-primary btn-block" (click)="scrollRight(hscroll)">Vote</button>
         </div>
         <div class="card col-md-6 mx-1">
             <h2 class="text-capitalize">Your role: {{role}} </h2>
@@ -40,7 +40,7 @@
              }">
                 <app-vote></app-vote>
             </div>
-            <button class="btn btn-primary btn-block" (click)="scrollLeft(list)">Got to Chat</button>
+            <button class="btn btn-primary btn-block" (click)="scrollLeft(hscroll)">Got to Chat</button>
         </div>
     </div>
 </div>
