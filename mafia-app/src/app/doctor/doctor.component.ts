@@ -24,6 +24,7 @@ export class DoctorComponent implements OnInit {
       false
     );
     let id = window.sessionStorage.getItem("gameId");
+    this.socket.joinRoom(id);
     this.player = window.sessionStorage.getItem("playerName");
     this.api.getPlayers(id);
     this.api.players.subscribe((list: any[]) => {

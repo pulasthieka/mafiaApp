@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import * as io from "socket.io-client";
 import { environment } from "../environments/environment";
+import { ApiService } from "./api.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -9,13 +11,22 @@ import { environment } from "../environments/environment";
 export class WebsocketService {
   private url = environment.baseUrl;
   private socket;
-
-  constructor() {
+  room = "";
+  // room = "5698808d0dd1ba8a9b60";
+  constructor(private route: ActivatedRoute) {
     this.socket = io(this.url);
   }
-
+  joinRoom(room: string) {
+    this.room = room;
+    this.socket.emit("join", this.room);
+    console.log(this.room, "room");
+  }
   sendChatMessage(msg: string) {
-    this.socket.emit("chat", msg);
+    var data = {
+      msg: msg,
+      room: this.room
+    };
+    this.socket.emit("chat", data);
     console.log("service message :" + msg);
   }
   getChatMessages = () => {
@@ -27,7 +38,11 @@ export class WebsocketService {
   };
 
   sendMafiaMessage(msg: string) {
-    this.socket.emit("mafia", msg);
+    var data = {
+      msg: msg,
+      room: this.room
+    };
+    this.socket.emit("mafia", data);
   }
   getMafiaMessages = () => {
     return Observable.create(observer => {
@@ -46,7 +61,11 @@ export class WebsocketService {
   };
 
   updateRoom() {
-    this.socket.emit("update", "now");
+    var data = {
+      msg: "now",
+      room: this.room
+    };
+    this.socket.emit("update", data);
   }
   getUpdates = () => {
     return Observable.create(observer => {
@@ -57,7 +76,11 @@ export class WebsocketService {
   };
 
   vote(msg) {
-    this.socket.emit("vote", msg);
+    var data = {
+      msg: msg,
+      room: this.room
+    };
+    this.socket.emit("vote", data);
   }
   getVotes = () => {
     return Observable.create(observer => {
@@ -68,7 +91,11 @@ export class WebsocketService {
   };
 
   mosquitoVote(msg) {
-    this.socket.emit("mosquito", msg);
+    var data = {
+      msg: msg,
+      room: this.room
+    };
+    this.socket.emit("mosquito", data);
   }
   getMosquitoVotes = () => {
     return Observable.create(observer => {
@@ -79,7 +106,11 @@ export class WebsocketService {
   };
 
   doctorVote(msg) {
-    this.socket.emit("doctor", msg);
+    var data = {
+      msg: msg,
+      room: this.room
+    };
+    this.socket.emit("doctor", data);
   }
   getDoctorVotes = () => {
     return Observable.create(observer => {
@@ -90,7 +121,11 @@ export class WebsocketService {
   };
 
   kill(player = "") {
-    this.socket.emit("kill", player);
+    var data = {
+      player: player,
+      room: this.room
+    };
+    this.socket.emit("kill", data);
   }
   getKill = () => {
     return Observable.create(observer => {
@@ -101,7 +136,11 @@ export class WebsocketService {
   };
 
   setTurn(turn) {
-    this.socket.emit("turn", turn);
+    var data = {
+      turn: turn,
+      room: this.room
+    };
+    this.socket.emit("turn", data);
   }
   getTurn = () => {
     return Observable.create(observer => {

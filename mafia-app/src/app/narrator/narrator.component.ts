@@ -18,6 +18,7 @@ export class NarratorComponent implements OnInit {
 
   ngOnInit() {
     this.id = window.sessionStorage.getItem("gameId");
+    this.socket.joinRoom(this.id);
     this.api.getPlayers(this.id);
     this.api.players.subscribe((list: any[]) => {
       this.roles = list;

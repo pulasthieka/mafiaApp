@@ -28,6 +28,7 @@ export class MainComponent implements OnInit {
     //   this.narrator = true;
     // }
     this.id = window.sessionStorage.getItem("gameId");
+    this.socket.joinRoom(this.id);
     this.name = window.sessionStorage.getItem("playerName");
     this.socket.getKill().subscribe(res => {
       this.api.getPlayers(this.id);

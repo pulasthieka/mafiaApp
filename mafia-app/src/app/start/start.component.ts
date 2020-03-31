@@ -49,6 +49,7 @@ export class StartComponent implements OnInit {
     });
     if (this.route.snapshot.paramMap.get("id")) {
       this.id = this.route.snapshot.paramMap.get("id");
+      this.socket.joinRoom(this.id);
       window.sessionStorage.setItem("gameId", this.id);
       this.api.getGame(this.id).subscribe(res => {
         if (res["started"]) {

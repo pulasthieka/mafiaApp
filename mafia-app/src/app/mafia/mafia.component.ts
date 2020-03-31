@@ -15,6 +15,7 @@ export class MafiaComponent implements OnInit {
   messages = [];
   disabled = false;
   player: string;
+  id: string;
   constructor(
     private socket: WebsocketService,
     private router: Router,
@@ -24,6 +25,8 @@ export class MafiaComponent implements OnInit {
   ngOnInit(): void {
     if (window.sessionStorage) {
       //c heck for webstorage compatibility
+      this.id = window.sessionStorage.getItem("gameId");
+      this.socket.joinRoom(this.id);
       if (window.sessionStorage.getItem("playerName")) {
         this.player = window.sessionStorage.getItem("playerName");
         this.api.players.subscribe((players: any[]) => {
