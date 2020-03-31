@@ -7,7 +7,7 @@ import { SelectionModel } from "@angular/cdk/collections";
 @Component({
   selector: "app-doctor",
   templateUrl: "./doctor.component.html",
-  styleUrls: ["./doctor.component.css"]
+  styleUrls: ["./doctor.component.scss"]
 })
 export class DoctorComponent implements OnInit {
   votes = {};

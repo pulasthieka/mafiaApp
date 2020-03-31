@@ -7,7 +7,7 @@ import { ApiService } from "../api.service";
 @Component({
   selector: "app-mafia",
   templateUrl: "./mafia.component.html",
-  styleUrls: ["./mafia.component.css"]
+  styleUrls: ["./mafia.component.scss"]
 })
 export class MafiaComponent implements OnInit {
   msg = new FormControl("");

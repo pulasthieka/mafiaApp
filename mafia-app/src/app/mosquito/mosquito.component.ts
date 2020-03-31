@@ -7,7 +7,7 @@ import { SelectionModel } from "@angular/cdk/collections";
 @Component({
   selector: "app-mosquito",
   templateUrl: "./mosquito.component.html",
-  styleUrls: ["./mosquito.component.css"]
+  styleUrls: ["./mosquito.component.scss"]
 })
 export class MosquitoComponent implements OnInit {
   votes = {};

@@ -5,7 +5,7 @@ import { WebsocketService } from "../websocket.service";
 @Component({
   selector: "app-narrator",
   templateUrl: "./narrator.component.html",
-  styleUrls: ["./narrator.component.css"]
+  styleUrls: ["./narrator.component.scss"]
 })
 export class NarratorComponent implements OnInit {
   constructor(private api: ApiService, private socket: WebsocketService) {}
