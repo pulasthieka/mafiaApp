@@ -7,6 +7,8 @@
 
 .scrolling-wrapper {
   display: flex;
+  scroll-snap-type: x mandatory;
+  // scroll-padding: 50%;
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
@@ -14,5 +16,6 @@
   .card {
     flex: 0 0 auto;
     height: 100vh;
+    scroll-snap-align: start;
   }
 }

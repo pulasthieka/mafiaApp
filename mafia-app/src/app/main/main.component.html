@@ -1,9 +1,7 @@
 <div class="container">
     <div class="scrolling-wrapper row" #list>
         <div class="col-md-6 card mx-1">
-
-            <h1 class="text-capitalize">{{role}} </h1>
-
+            <h2 class="text-capitalize">Game Chat</h2>
             <div [ngClass]="{
                 'hidden': night, 'visible':!night
              }">
@@ -22,6 +20,7 @@
             <button class="btn btn-primary btn-block" (click)="scrollRight(list)">Vote</button>
         </div>
         <div class="card col-md-6 mx-1">
+            <h2 class="text-capitalize">Your role: {{role}} </h2>
             <div *ngIf="doctor && !disabled" [ngClass]="{
                 'hidden': !night, 'visible':night
              }">
