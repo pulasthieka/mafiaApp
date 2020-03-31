@@ -2,12 +2,27 @@
 <button *ngFor="let player of players" mat-button (click)="kill(player.name)">
     Kill {{player.name}}
 </button> -->
-<button mat-button (click)="setDayTurn()">
-    Day Turn
-</button>
-<button mat-button (click)="setNightTurn()">
-    Night Turn
-</button>
+<div class="row">
+    <button class="col-6" mat-button (click)="setDayTurn()">
+        Day Turn
+    </button>
+    <button class="col-6" mat-button (click)="setNightTurn()">
+        Night Turn
+    </button>
+</div>
+<div class="row">
+    <div class="col-6">
+        <h2>Doctor Heals : {{doctorMsg}}</h2>
+    </div>
+    <div class="col-6">
+        <h2>Mosquito Stings : {{mosquitoMsg}}</h2>
+        <h3>Previous Kills</h3>
+        <ol>
+            <li *ngFor="let choice of mosquitoStings">{{choice}}</li>
+        </ol>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-6">
         <mat-nav-list>
@@ -20,7 +35,7 @@
         </mat-nav-list>
     </div>
     <div class="col-6">
-        <mat-nav-list>
+        <mat-nav-list dense>
             <h2 matSubheader> Roles </h2>
             <mat-list-item *ngFor="let item of roles">
                 <mat-icon *ngIf="item.dead" matListIcon> sentiment_very_dissatisfied </mat-icon>

@@ -1,31 +1,42 @@
 <h1>Your Role : {{role}} </h1>
-Night : {{night}}
 <div class="row">
-    <div class="col-6" [ngClass]="{
-        'hidden': night
-     }">
-        <app-chat></app-chat>
+    <div class="col-6">
+        <div [ngClass]="{
+            'hidden': night, 'visible':!night
+         }">
+            <app-chat></app-chat>
+        </div>
+        <div *ngIf="mafia" [ngClass]="{
+            'hidden': !night, 'visible':night
+         }">
+            <app-mafia></app-mafia>
+        </div>
+        <div *ngIf="!mafia" [ngClass]="{
+            'hidden': !night, 'visible':night
+         }">
+            <h1>There's nothing to look at sleep tight</h1>
+        </div>
     </div>
-    <div class="col-6" *ngIf="mafia" [ngClass]="{
-        'hidden': !night
-     }">
-        <app-mafia></app-mafia>
-    </div>
-    <div class="col-6" *ngIf="doctor" [ngClass]="{
-        'hidden': !night
-     }">
-        <app-doctor></app-doctor>
-    </div>
-    <div class="col-6" *ngIf="mosquito" [ngClass]="{
-        'hidden': !night
-     }">
-        <app-mosquito></app-mosquito>
+    <div class="col-6">
+        <div *ngIf="doctor && !disabled" [ngClass]="{
+            'hidden': !night, 'visible':night
+         }">
+            <app-doctor></app-doctor>
+        </div>
+        <div *ngIf="mosquito && !disabled" [ngClass]="{
+            'hidden': !night, 'visible':night
+         }">
+            <app-mosquito></app-mosquito>
+        </div>
+
+        <div *ngIf=narrator>
+            <app-narrator></app-narrator>
+        </div>
+        <div *ngIf="!narrator && !disabled" [ngClass]="{
+            'hidden': night, 'visible':!night
+         }">
+            <app-vote></app-vote>
+        </div>
     </div>
 
-    <div *ngIf=narrator>
-        <app-narrator></app-narrator>
-    </div>
-    <div *ngIf="!narrator && !disabled" class="col-6">
-        <app-vote></app-vote>
-    </div>
 </div>

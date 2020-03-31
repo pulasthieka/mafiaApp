@@ -1,1 +1,12 @@
-<p>doctor works!</p>
+<div class="row">
+    <div class="col-6">
+        <mat-selection-list>
+            <h2 matSubheader> Heal a Person </h2>
+            <mat-list-option *ngFor="let item of players" (click)="vote(item.name)" list-item-active>
+                <mat-icon matListIcon> face </mat-icon>
+                {{item.name}}
+            </mat-list-option>
+
+        </mat-selection-list>
+    </div>
+</div>

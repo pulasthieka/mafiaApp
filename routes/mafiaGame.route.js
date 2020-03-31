@@ -42,17 +42,17 @@ gameRoutes.route("/add/:id").post(function(req, res) {
 
 gameRoutes.route("/start/:id").post(function(req, res) {
   let id = req.params.id;
-  console.log("Assignment Started", req.body);
+  console.log("Assignment Started", req.body.settings);
   // Game.updateOne({'name':id},{$set: { "players" : req.body }} )
   Game.findOne({ name: id }, function(err, game) {
     game.started = true;
-    game.settings = req.body;
+    game.settings = req.body.settings;
     roles = [];
     if (game.settings.jester) {
       roles.push("jester");
     }
     if (game.settings.mosquito) {
-      roles.push("doctor");
+      roles.push("mosquito");
     }
     if (game.settings.doctor) {
       roles.push("doctor");
@@ -64,13 +64,15 @@ gameRoutes.route("/start/:id").post(function(req, res) {
     }
     var i;
     let j = roles.length;
-    for (i = 0; i < game.players.length - j; i++) {
+    for (i = 0; i < game.players.length - j - 1; i++) {
       roles.push("villager");
     }
     game.players.forEach(player => {
       // assign roles
       let x = Math.floor(Math.random() * roles.length);
-      player.role = roles[x];
+      if (player.role != "narrator") {
+        player.role = roles[x];
+      }
       // console.log(player.role,roles,x)
       roles.splice(x, 1);
     });

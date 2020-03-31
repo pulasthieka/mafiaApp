@@ -11,7 +11,7 @@
     <p *ngIf="nameChosen"> Your Name : {{playerId}}
     </p>
 
-    <form [formGroup]="settingsForm" novalidate (ngSubmit)="startGame(settingsForm.value)">
+    <form *ngIf="narrator" [formGroup]="settingsForm" novalidate (ngSubmit)="startGame(settingsForm.value)">
         <label>Joker</label>
         <input type="checkbox" class="form-control" formControlName="jester">
         <label>Mosquito</label>

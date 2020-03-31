@@ -16,6 +16,7 @@ export class WelcomeComponent implements OnInit {
     window.sessionStorage.clear();
     this.api.newgame().subscribe(res => {
       window.sessionStorage.setItem("gameId", res["id"]);
+      window.sessionStorage.setItem("narrator", "true");
       let id = res["id"];
       this.api.id = id;
       console.log("New Game Created", id);

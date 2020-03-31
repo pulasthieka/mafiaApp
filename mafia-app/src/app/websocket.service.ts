@@ -67,6 +67,28 @@ export class WebsocketService {
     });
   };
 
+  mosquitoVote(msg) {
+    this.socket.emit("mosquito", msg);
+  }
+  getMosquitoVotes = () => {
+    return Observable.create(observer => {
+      this.socket.on("mosquito", message => {
+        observer.next(message);
+      });
+    });
+  };
+
+  doctorVote(msg) {
+    this.socket.emit("doctor", msg);
+  }
+  getDoctorVotes = () => {
+    return Observable.create(observer => {
+      this.socket.on("doctor", message => {
+        observer.next(message);
+      });
+    });
+  };
+
   kill(player = "") {
     this.socket.emit("kill", player);
   }

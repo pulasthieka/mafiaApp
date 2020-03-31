@@ -59,8 +59,13 @@ socket.on("connection", client => {
     socket.emit("mafia", msg);
   });
   client.on("vote", msg => {
-    // console.log(msg)
     socket.emit("vote", msg);
+  });
+  client.on("mosquito", msg => {
+    socket.emit("mosquito", msg);
+  });
+  client.on("doctor", msg => {
+    socket.emit("doctor", msg);
   });
   client.on("update", msg => {
     socket.emit("update", msg);

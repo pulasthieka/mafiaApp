@@ -19,6 +19,7 @@ export class StartComponent implements OnInit {
   showPlayerList = false;
   id: string;
   url: string;
+  narrator = false;
   nameChosen = false;
   playerId: string;
   playerName = new FormControl();
@@ -36,7 +37,16 @@ export class StartComponent implements OnInit {
   ngOnInit() {
     console.log(this.route.snapshot.paramMap.get("id"));
     this.url = document.URL;
+    if (window.sessionStorage.getItem("narrator")) {
+      this.narrator = true;
+    }
     // window.sessionStorage.clear();
+    this.settingsForm = this.formBuilder.group({
+      jester: [null, Validators.required],
+      mosquito: [null, Validators.required],
+      doctor: [null, Validators.required],
+      mafia: [null, Validators.required]
+    });
     if (this.route.snapshot.paramMap.get("id")) {
       this.id = this.route.snapshot.paramMap.get("id");
       window.sessionStorage.setItem("gameId", this.id);
@@ -69,18 +79,18 @@ export class StartComponent implements OnInit {
     this.socket.getKill().subscribe(res => {
       this.api.getPlayers(this.id);
     });
-    this.settingsForm = this.formBuilder.group({
-      jester: [null, Validators.required],
-      mosquito: [null, Validators.required],
-      doctor: [null, Validators.required],
-      mafia: [null, Validators.required]
-    });
   }
 
   createPlayer(name) {
+    let r;
+    if (this.narrator) {
+      r = "narrator";
+    } else {
+      r = "role";
+    }
     let player = {
       name: name,
-      role: "none",
+      role: r,
       dead: false
     };
     this.api.newPlayer(player, this.id).subscribe(res => {

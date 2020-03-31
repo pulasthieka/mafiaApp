@@ -13,6 +13,8 @@ export class MainComponent implements OnInit {
   name: string;
   id: string;
   mafia = false;
+  mosquito = false;
+  doctor = false;
   disabled = false;
   narrator = false;
   night = false;
@@ -20,9 +22,9 @@ export class MainComponent implements OnInit {
   constructor(private api: ApiService, private socket: WebsocketService) {}
 
   ngOnInit() {
-    if (window.sessionStorage.getItem("narrator")) {
-      this.narrator = true;
-    }
+    // if (window.sessionStorage.getItem("narrator")) {
+    //   this.narrator = true;
+    // }
     this.id = window.sessionStorage.getItem("gameId");
     this.name = window.sessionStorage.getItem("playerName");
     this.socket.getKill().subscribe(res => {
@@ -44,6 +46,15 @@ export class MainComponent implements OnInit {
       console.log(res, this.role);
       if (this.role == "mafia") {
         this.mafia = true;
+      }
+      if (this.role == "mosquito") {
+        this.mosquito = true;
+      }
+      if (this.role == "doctor") {
+        this.doctor = true;
+      }
+      if (this.role == "narrator") {
+        this.narrator = true;
       }
       // add other roles
     });
