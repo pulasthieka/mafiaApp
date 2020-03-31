@@ -29,7 +29,7 @@ export class VoteComponent implements OnInit {
     this.api.players.subscribe((list: any[]) => {
       let alive = [];
       list.forEach(element => {
-        if (!element.dead) {
+        if (!element.dead && element.role != "narrator") {
           alive.push(element);
         }
       });
@@ -48,5 +48,10 @@ export class VoteComponent implements OnInit {
   vote(name) {
     let msg = JSON.stringify({ user: this.player, kill: name });
     this.socket.vote(msg);
+    let message = JSON.stringify({
+      username: this.player,
+      message: "I say, lets kill " + name
+    });
+    this.socket.sendChatMessage(message);
   }
 }

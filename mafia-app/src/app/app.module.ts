@@ -6,23 +6,26 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+
 import { WebsocketService } from "./websocket.service";
+import { ApiService } from "./api.service";
+
 import { ChatComponent } from "./chat/chat.component";
 import { VoteComponent } from "./vote/vote.component";
 import { StartComponent } from "./start/start.component";
-import { ApiService } from "./api.service";
 import { MainComponent } from "./main/main.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
+import { NarratorComponent } from "./narrator/narrator.component";
+import { DoctorComponent } from "./doctor/doctor.component";
+import { MosquitoComponent } from "./mosquito/mosquito.component";
+import { MafiaComponent } from "./mafia/mafia.component";
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRadioModule } from "@angular/material/radio";
-import { NarratorComponent } from './narrator/narrator.component';
-import { DoctorComponent } from './doctor/doctor.component';
-import { MosquitoComponent } from './mosquito/mosquito.component';
-import { MafiaComponent } from './mafia/mafia.component';
+import { MDBBootstrapModule } from "angular-bootstrap-md";
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import { MafiaComponent } from './mafia/mafia.component';
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    MatRadioModule
+    MatRadioModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [WebsocketService, ApiService],
   bootstrap: [AppComponent]

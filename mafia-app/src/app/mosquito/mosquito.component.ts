@@ -29,7 +29,7 @@ export class MosquitoComponent implements OnInit {
     this.api.players.subscribe((list: any[]) => {
       let alive = [];
       list.forEach(element => {
-        if (!element.dead) {
+        if (!element.dead && element.role != "narrator") {
           alive.push(element);
         }
       });

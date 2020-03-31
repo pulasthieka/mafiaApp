@@ -2,11 +2,11 @@
 <button *ngFor="let player of players" mat-button (click)="kill(player.name)">
     Kill {{player.name}}
 </button> -->
-<div class="row">
-    <button class="col-6" mat-button (click)="setDayTurn()">
+<div class="btn-group" style="width: 100%;">
+    <button class="col-6 btn btn-light btn-block" (click)="setDayTurn()">
         Day Turn
     </button>
-    <button class="col-6" mat-button (click)="setNightTurn()">
+    <button class="col-6 btn btn-dark btn-block" (click)="setNightTurn()">
         Night Turn
     </button>
 </div>

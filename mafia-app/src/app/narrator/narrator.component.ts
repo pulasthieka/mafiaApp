@@ -24,7 +24,7 @@ export class NarratorComponent implements OnInit {
       console.log(this.roles);
       let alive = [];
       list.forEach(element => {
-        if (!element.dead) {
+        if (!element.dead && element.role != "narrator") {
           alive.push(element);
         }
       });

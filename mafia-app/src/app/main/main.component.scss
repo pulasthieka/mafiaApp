@@ -1,13 +1,18 @@
-.row {
-  display: flex;
-  flex-direction: row;
-}
-.col-6 {
-  width: 50%;
-}
 .hidden {
   display: none;
 }
 .visible {
   display: block;
+}
+
+.scrolling-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  .card {
+    flex: 0 0 auto;
+    height: 100vh;
+  }
 }

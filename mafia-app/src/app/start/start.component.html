@@ -1,29 +1,61 @@
-<div *ngIf="showPlayerList">
-    <p> Share the following link for others to join </p>
-    <h1>{{url}}</h1>
-    <form *ngIf="!nameChosen" (keyup.enter)="createPlayer(playerName.value)">
-        <label>
-            Enter Name:
-            <input type="text" [formControl]="playerName">
-        </label>
-        <button (click)="createPlayer(playerName.value)">Join</button>
-    </form>
-    <p *ngIf="nameChosen"> Your Name : {{playerId}}
-    </p>
+<div class="container">
+    <div class="row mx-auto" style="height: 90vh; max-width: 900px;">
+        <div class=" col-12 align-self-center">
+            <div class="row text-center">
+                <div class="col-12 text-center"> Share the following link for others to join </div>
+                <div class="col-12 text-center mb-4">
+                    <h4 class="text-wrap text-break">{{url}}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <form class="text-center border border-light p-4" *ngIf="!nameChosen"
+                        (ngSubmit)="createPlayer(playerName.value)">
+                        <p class="h4 mb-4">Choose Game Name </p>
+                        <input class="form-control mb-4" type="text" [formControl]="playerName"
+                            placeholder="My name is ... ">
+                        <button class="btn btn-primary btn-block" type="submit">Join Game </button>
+                    </form>
+                    <div *ngIf="nameChosen">
+                        <h4 class=" md-4 text-center"> Welcome {{playerId}} </h4>
 
-    <form *ngIf="narrator" [formGroup]="settingsForm" novalidate (ngSubmit)="startGame(settingsForm.value)">
-        <label>Joker</label>
-        <input type="checkbox" class="form-control" formControlName="jester">
-        <label>Mosquito</label>
-        <input type="checkbox" class="form-control" formControlName="mosquito">
-        <label>Doctor</label>
-        <input type="checkbox" class="form-control" formControlName="doctor">
-        <label>Mafia</label>
-        <input type="number" class="form-control" placeholder="Number" required formControlName="mafia">
-        <button mat-button type="submit">Start Game</button>
-    </form>
-    <h2>Connected Players</h2>
-    <ul>
-        <li *ngFor="let player of players">{{player.name}}</li>
-    </ul>
+                        <form class="border border-light p-4" *ngIf="narrator" [formGroup]="settingsForm"
+                            (ngSubmit)="startGame(settingsForm.value)" novalidate>
+                            <p class="h4 mb-4">Game Settings </p>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" formControlName="jester"
+                                    id="jester">
+                                <label class="custom-control-label" for="jester">Include Joker</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" formControlName="mosquito"
+                                    id="mosquito">
+                                <label class="custom-control-label" for="mosquito">Include Mosquito</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" formControlName="doctor"
+                                    id="doctor">
+                                <label class="custom-control-label" for="doctor">Include Doctor</label>
+                            </div>
+                            <label for="mafia">Mafia</label>
+                            <input type="number" class="form-control" placeholder="1" formControlName="mafia" id="mafia"
+                                required>
+
+                            <button class="btn btn-primary btn-block mt-4" type="submit">Start Game</button>
+                        </form>
+                        <div class="md-4" *ngIf="!narrator">
+                            Waiting for players
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Connected Players</h4>
+                    <ul class="list-group-flush p-0">
+                        <li class="list-group-item" *ngFor="let player of players"><i class="fas fa-bomb mr-5"></i>
+                            {{player.name}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

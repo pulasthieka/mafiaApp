@@ -67,14 +67,15 @@ gameRoutes.route("/start/:id").post(function(req, res) {
     for (i = 0; i < game.players.length - j - 1; i++) {
       roles.push("villager");
     }
+    // console.log(game.players, roles);
     game.players.forEach(player => {
       // assign roles
       let x = Math.floor(Math.random() * roles.length);
       if (player.role != "narrator") {
         player.role = roles[x];
+        console.log(player.role, roles, x);
+        roles.splice(x, 1);
       }
-      // console.log(player.role,roles,x)
-      roles.splice(x, 1);
     });
     game.save();
     res.json(game.players);
