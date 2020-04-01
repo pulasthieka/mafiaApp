@@ -10,7 +10,9 @@ let Game = new Schema(
       {
         name: { type: String },
         role: { type: String },
-        dead: { type: Boolean, default: false }
+        dead: { type: Boolean, default: false },
+        count: { type: Number, default: 0 },
+        health: { type: Number, default: 3 }
       }
     ],
     settings: {

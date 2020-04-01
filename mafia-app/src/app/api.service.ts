@@ -50,7 +50,25 @@ export class ApiService {
     this.http.post(`${this.uri}/kill/${id}&${player}`, {}).subscribe(res => {
       // this.getPlayers(id);
       this.socket.kill(player);
-      console.log("Roles assigned", res);
+    });
+  }
+  stingplayer(id = this.id, player) {
+    this.http.post(`${this.uri}/sting/${id}&${player}`, {}).subscribe(res => {
+      // this.getPlayers(id);
+      this.socket.kill(player);
+    });
+  }
+  voteplayer(player: string, pname, id = this.id) {
+    if (pname == "") {
+      pname = "NULL";
+    }
+    this.http.post(`${this.uri}/devote/${id}&${pname}`, {}).subscribe(res => {
+      console.log(res);
+    });
+    this.http.post(`${this.uri}/vote/${id}&${player}`, {}).subscribe(res => {
+      console.log(res);
+      // this.getPlayers(id);
+      this.socket.kill(player);
     });
   }
 }

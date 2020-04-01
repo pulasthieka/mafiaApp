@@ -1,20 +1,21 @@
-<main class="msger-chat" #scrollMe (scroll)="onScroll()">
-    <div *ngFor="let msg of messages" [ngClass]="(msg.username != player)?'left-msg':'right-msg'" class="msg ">
-
-        <div class="msg-bubble">
-            <div class="msg-info">
-                <div class="msg-info-name">{{msg.username}}</div>
-                <!-- <div class="msg-info-time">12:45</div> -->
-            </div>
-            {{msg.message}}
-            <div class="msg-text">
+<div style="position: relative;">
+    <main class="msger-chat" #scrollMe (scroll)="onScroll()">
+        <div *ngFor="let msg of messages" [ngClass]="(msg.username != player)?'left-msg':'right-msg'" class="msg ">
+            <div class="msg-bubble">
+                <div class="msg-info">
+                    <div *ngIf="msg.username != player" class="msg-info-name">{{msg.username}}</div>
+                    <!-- <div class="msg-info-time">12:45</div > -->
+                </div>
+                {{msg.message}}
+                <div class="msg-text">
+                </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 
-<!-- <form (keyup.enter)="sendChatMessage(msg.value)""> -->
-<form *ngIf="!disabled" class="msger-inputarea">
-    <input type="text" [formControl]="msg" class="msger-input" placeholder="Enter your message...">
-    <button type="submit" (click)="sendChatMessage(msg.value)" class="msger-send-btn">Send</button>
-</form>
+    <!-- <form (keyup.enter)="sendChatMessage(msg.value)""> -->
+    <form *ngIf="!disabled" class="msger-inputarea" style=" width: 100%;">
+        <input type="text" [formControl]="msg" class="msger-input" placeholder="Enter your message...">
+        <button type="submit" (click)="sendChatMessage(msg.value)" class="msger-send-btn">Send</button>
+    </form>
+</div>

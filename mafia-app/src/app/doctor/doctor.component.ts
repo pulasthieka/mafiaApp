@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { WebsocketService } from "../websocket.service";
 import { ApiService } from "../api.service";
-import { MatSelectionList, MatListOption } from "@angular/material/list";
-import { SelectionModel } from "@angular/cdk/collections";
 
 @Component({
   selector: "app-doctor",
@@ -14,15 +12,11 @@ export class DoctorComponent implements OnInit {
   votesArray = [];
   players = [];
   player: string;
-  @ViewChild(MatSelectionList, { static: true })
-  private selectionList: MatSelectionList;
+  pname = "";
 
   constructor(private socket: WebsocketService, private api: ApiService) {}
 
   ngOnInit(): void {
-    this.selectionList.selectedOptions = new SelectionModel<MatListOption>(
-      false
-    );
     let id = window.sessionStorage.getItem("gameId");
     this.socket.joinRoom(id);
     this.player = window.sessionStorage.getItem("playerName");
@@ -36,10 +30,16 @@ export class DoctorComponent implements OnInit {
       });
       this.players = alive;
     });
+    this.socket.getTurn().subscribe(res => {
+      if (res == "Day") {
+        this.pname = "";
+      }
+    });
   }
 
   vote(name): void {
     let msg = JSON.stringify({ user: this.player, kill: name });
+    this.pname = name;
     this.socket.doctorVote(msg);
   }
 }

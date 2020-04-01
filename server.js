@@ -57,7 +57,7 @@ socket.on("connection", client => {
     });
   });
   client.on("chat", msg => {
-    console.log(msg, "msg");
+    // console.log(msg, "msg");
     socket.to(msg.room).emit("chat", msg.msg);
   });
   client.on("mafia", msg => {

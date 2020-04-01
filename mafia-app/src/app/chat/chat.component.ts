@@ -30,9 +30,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     private router: Router,
     private api: ApiService
   ) {}
-  ngAfterViewChecked() {
-    this.scrollToBottom();
-  }
+
   ngOnInit() {
     if (window.sessionStorage) {
       //c heck for webstorage compatibility
@@ -53,6 +51,9 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.socket.getChatMessages().subscribe((message: string) => {
       this.messages.push(JSON.parse(message));
     });
+    this.scrollToBottom();
+  }
+  ngAfterViewChecked() {
     this.scrollToBottom();
   }
 
@@ -84,12 +85,13 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   onScroll(): void {
     let element = this.myScrollContainer.nativeElement;
     let atBottom =
-      element.scrollHeight - element.scrollTop <= element.clientHeight + 50;
-    console.log(atBottom);
-    if (atBottom) {
+      element.scrollHeight - element.scrollTop <= element.clientHeight + 10;
+    // console.log(atBottom,this.disableScrollDown);
+    if (this.disableScrollDown && atBottom) {
       this.disableScrollDown = false;
     } else {
       this.disableScrollDown = true;
     }
+    console.log(atBottom, this.disableScrollDown);
   }
 }

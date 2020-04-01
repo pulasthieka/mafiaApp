@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  AfterViewChecked,
+  ElementRef,
+  ViewChild,
+  OnDestroy
+} from "@angular/core";
 import { WebsocketService } from "../websocket.service";
 import { FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -9,13 +16,16 @@ import { ApiService } from "../api.service";
   templateUrl: "./mafia.component.html",
   styleUrls: ["./mafia.component.scss"]
 })
-export class MafiaComponent implements OnInit {
+export class MafiaComponent implements OnInit, AfterViewChecked, OnDestroy {
+  @ViewChild("scrollMe") private myScrollContainer: ElementRef;
   msg = new FormControl("");
   display = false;
   messages = [];
   disabled = false;
   player: string;
   id: string;
+  disableScrollDown = false;
+
   constructor(
     private socket: WebsocketService,
     private router: Router,
@@ -47,6 +57,10 @@ export class MafiaComponent implements OnInit {
     });
   }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
   ngOnDestroy() {
     this.socket.destroy();
   }
@@ -60,5 +74,27 @@ export class MafiaComponent implements OnInit {
       this.socket.sendMafiaMessage(message);
       this.msg.setValue("");
     }
+  }
+  scrollToBottom(): void {
+    if (this.disableScrollDown) {
+      return;
+    } else {
+      try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      } catch (err) {}
+    }
+  }
+
+  onScroll(): void {
+    let element = this.myScrollContainer.nativeElement;
+    let atBottom =
+      element.scrollHeight - element.scrollTop <= element.clientHeight + 10;
+    // console.log(atBottom,this.disableScrollDown);
+    if (this.disableScrollDown && atBottom) {
+      this.disableScrollDown = false;
+    } else {
+      this.disableScrollDown = true;
+    }
+    console.log(atBottom, this.disableScrollDown);
   }
 }

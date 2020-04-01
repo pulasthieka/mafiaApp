@@ -24,6 +24,7 @@ export class StartComponent implements OnInit {
   playerId: string;
   playerName = new FormControl();
   players = [];
+  err = false;
   settingsForm: FormGroup;
 
   constructor(
@@ -35,8 +36,8 @@ export class StartComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.route.snapshot.paramMap.get("id"));
     this.url = document.URL;
+    console.log(this.url);
     if (window.sessionStorage.getItem("narrator")) {
       this.narrator = true;
     }
@@ -83,24 +84,32 @@ export class StartComponent implements OnInit {
   }
 
   createPlayer(name) {
-    let r;
-    if (this.narrator) {
-      r = "narrator";
+    console.log(name);
+    // if name taken console.error();
+    if (this.players.find(el => el.name == name)) {
+      // alert("Name taken");
+      this.err = true;
     } else {
-      r = "role";
+      this.err = false;
+      let r;
+      if (this.narrator) {
+        r = "narrator";
+      } else {
+        r = "role";
+      }
+      let player = {
+        name: name,
+        role: r,
+        dead: false
+      };
+      this.api.newPlayer(player, this.id).subscribe(res => {
+        this.playerId = res["name"];
+        window.sessionStorage.setItem("playerName", res["name"]);
+        this.nameChosen = true;
+        this.socket.kill();
+        console.log("New Player Created", res);
+      });
     }
-    let player = {
-      name: name,
-      role: r,
-      dead: false
-    };
-    this.api.newPlayer(player, this.id).subscribe(res => {
-      this.playerId = res["name"];
-      window.sessionStorage.setItem("playerName", res["name"]);
-      this.nameChosen = true;
-      this.socket.kill();
-      console.log("New Player Created", res);
-    });
 
     // this.playerId = window.sessionStorage.getItem('playerName');
   }
@@ -109,5 +118,11 @@ export class StartComponent implements OnInit {
     console.log(data);
     this.api.start(this.id, data);
     console.log("Start pressed");
+  }
+
+  copy(inputElement) {
+    inputElement.select();
+    document.execCommand("copy");
+    inputElement.setSelectionRange(0, 0);
   }
 }

@@ -96,6 +96,48 @@ gameRoutes.route("/kill/:id&:player").post(function(req, res) {
   });
 });
 
+gameRoutes.route("/vote/:id&:player").post(function(req, res) {
+  let id = req.params.id;
+  let player = req.params.player;
+  Game.updateOne(
+    { name: id, players: { $elemMatch: { name: player } } },
+    {
+      $inc: { "players.$.count": 1 }
+    }
+  ).then(player => {
+    res.json("Voted: " + player);
+    // console.log(player);
+  });
+});
+
+gameRoutes.route("/devote/:id&:player").post(function(req, res) {
+  let id = req.params.id;
+  let player = req.params.player;
+  Game.updateOne(
+    { name: id, players: { $elemMatch: { name: player } } },
+    {
+      $inc: { "players.$.count": -1 }
+    }
+  ).then(player => {
+    res.json("DeVoted: " + player);
+    // console.log(player);
+  });
+});
+
+gameRoutes.route("/sting/:id&:player").post(function(req, res) {
+  let id = req.params.id;
+  let player = req.params.player;
+  Game.updateOne(
+    { name: id, players: { $elemMatch: { name: player } } },
+    {
+      $inc: { "players.$.health": -1 }
+    }
+  ).then(player => {
+    res.json("Stung: " + player);
+    // console.log(res);
+  });
+});
+
 // Defined get data(index or listing) route
 gameRoutes.route("/get/:id").get(function(req, res) {
   // console.log('Backend Get')

@@ -1,7 +1,14 @@
 <div class="container">
     <div class="scrolling-wrapper row" #hscroll>
-        <div class="col-md-6 card mx-1">
-            <h2 class="text-capitalize">Game Chat</h2>
+        <div class="col-md-6 p-0 hcard mx-1">
+            <div class="d-flex justify-content-between">
+                <div class="ml-2">
+                    <h2 class="my-4 text-capitalize">Game Chat</h2>
+                </div>
+                <button type="button" (click)="scrollRight(hscroll)" class="close mr-4" aria-label="Close">
+                    <span aria-hidden="true"> <i class="fas fa-arrow-right"></i></span>
+                </button>
+            </div>
             <div [ngClass]="{
                 'hidden': night, 'visible':!night
              }">
@@ -15,32 +22,45 @@
             <div *ngIf="!mafia && !narrator" [ngClass]="{
                 'hidden': !night, 'visible':night
              }">
-                <h1>There's nothing to look at sleep tight</h1>
+                <div class="text-center row " style="height: 90vh;">
+                    <div class=" col-12 align-self-center justify-content-center">
+                        <p *ngIf="!doctor && !mosquito || disabled" class=" display-4">There's nothing to look here at
+                            sleep tight</p>
+                        <p *ngIf="doctor || mosquito && !disabled" class=" display-4">Go to Actions for your turn </p>
+                    </div>
+                </div>
             </div>
-            <button class="btn btn-primary btn-block" (click)="scrollRight(hscroll)">Vote</button>
+            <!-- <button class="btn btn-primary btn-block" (click)="scrollRight(hscroll)">Vote</button> -->
         </div>
-        <div class="card col-md-6 mx-1">
-            <h2 class="text-capitalize">Your role: {{role}} </h2>
-            <div *ngIf="doctor && !disabled" [ngClass]="{
+        <div class="hcard col-md-6 p-0 mx-1">
+            <div class="d-flex justify-content-between">
+                <button type="button" (click)="scrollLeft(hscroll)" class="close ml-4" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-arrow-left"></i> Chat</span>
+                </button>
+                <div class="my-4 mr-2">
+                    <h2 class="text-capitalize">You are {{role}} </h2>
+                </div>
+            </div>
+            <div class="mx-1" *ngIf="doctor && !disabled" [ngClass]="{
                 'hidden': !night, 'visible':night
              }">
                 <app-doctor></app-doctor>
             </div>
-            <div *ngIf="mosquito && !disabled" [ngClass]="{
+            <div class="mx-1" *ngIf="mosquito && !disabled" [ngClass]="{
                 'hidden': !night, 'visible':night
              }">
                 <app-mosquito></app-mosquito>
             </div>
 
-            <div *ngIf=narrator>
+            <div class="mx-1" *ngIf=narrator>
                 <app-narrator></app-narrator>
             </div>
-            <div *ngIf="!narrator && !disabled" [ngClass]="{
+            <div class="mx-1" *ngIf="!narrator && !disabled" [ngClass]="{
                 'hidden': night, 'visible':!night
              }">
                 <app-vote></app-vote>
             </div>
-            <button class="btn btn-primary btn-block" (click)="scrollLeft(hscroll)">Got to Chat</button>
+
         </div>
     </div>
 </div>

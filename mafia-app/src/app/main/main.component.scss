@@ -4,7 +4,12 @@
 .visible {
   display: block;
 }
-
+.dark {
+  background-color: #000;
+}
+.light {
+  background-color: #eee;
+}
 .scrolling-wrapper {
   display: flex;
   scroll-behavior: smooth;
@@ -12,11 +17,19 @@
   // scroll-padding: 50%;
   flex-wrap: nowrap;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
 
-  .card {
+  .hcard {
     flex: 0 0 auto;
     height: 100vh;
     scroll-snap-align: start;
   }
+}
+
+.floating-header {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  background: #fff;
+  width: 100%;
 }

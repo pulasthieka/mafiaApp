@@ -14,7 +14,7 @@ export class NarratorComponent implements OnInit {
   roles = [];
   doctorMsg = "";
   mosquitoMsg = "";
-  mosquitoStings = [];
+  // mosquitoStings = [];
 
   ngOnInit() {
     this.id = window.sessionStorage.getItem("gameId");
@@ -27,6 +27,14 @@ export class NarratorComponent implements OnInit {
       list.forEach(element => {
         if (!element.dead && element.role != "narrator") {
           alive.push(element);
+        }
+        if (!element.dead && element.health == 0) {
+          this.api.killplayer(this.id, element.name);
+          let message = JSON.stringify({
+            username: "Narrator",
+            message: element.name + " was killed by the Mad Dog"
+          });
+          this.socket.sendChatMessage(message);
         }
       });
       this.players = alive;
@@ -49,7 +57,8 @@ export class NarratorComponent implements OnInit {
     this.socket.setTurn("Night");
   }
   setDayTurn() {
-    this.mosquitoStings.push(this.mosquitoMsg);
+    // this.mosquitoStings.push(this.mosquitoMsg);
+    this.api.stingplayer(this.id, this.mosquitoMsg);
     this.socket.setTurn("Day");
   }
 }

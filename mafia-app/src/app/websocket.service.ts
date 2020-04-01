@@ -122,7 +122,7 @@ export class WebsocketService {
 
   kill(player = "") {
     var data = {
-      player: player,
+      msg: player,
       room: this.room
     };
     this.socket.emit("kill", data);
@@ -137,7 +137,7 @@ export class WebsocketService {
 
   setTurn(turn) {
     var data = {
-      turn: turn,
+      msg: turn,
       room: this.room
     };
     this.socket.emit("turn", data);

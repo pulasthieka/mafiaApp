@@ -3,8 +3,11 @@
         <div class=" col-12 align-self-center">
             <div class="row text-center">
                 <div class="col-12 text-center"> Share the following link for others to join </div>
-                <div class="col-12 text-center mb-4">
-                    <h4 class="text-wrap text-break">{{url}}</h4>
+                <div class="input-group mb-4">
+                    <input class="form-control" type="text" value={{url}} #urlq aria-describedby="inputGroupAppend">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="inputGroupAppend" (click)="copy(urlq)">Copy</span>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -12,8 +15,21 @@
                     <form class="text-center border border-light p-4" *ngIf="!nameChosen"
                         (ngSubmit)="createPlayer(playerName.value)">
                         <p class="h4 mb-4">Choose Game Name </p>
-                        <input class="form-control mb-4" type="text" [formControl]="playerName"
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                            </div>
+                            <input class="form-control" type="text" [formControl]="playerName" placeholder="Username"
+                                aria-describedby="inputGroupPrepend" [ngClass]="{
+                                    'is-invalid ': err
+                                 }" required>
+                            <div class="invalid-feedback">
+                                Name is already taken
+                            </div>
+                        </div>
+                        <!-- <input class="form-control mb-4" type="text" [formControl]="playerName"
                             placeholder="My name is ... ">
+                        <p *ngIf="err" class="invalid-feedback">Name is already taken</p> -->
                         <button class="btn btn-primary btn-block" type="submit">Join Game </button>
                     </form>
                     <div *ngIf="nameChosen">
@@ -43,15 +59,21 @@
 
                             <button class="btn btn-primary btn-block mt-4" type="submit">Start Game</button>
                         </form>
-                        <div class="md-4" *ngIf="!narrator">
-                            Waiting for players
+                        <div class="md-4 text-center" *ngIf="!narrator">
+                            <div>
+                                <i class="fas fa-circle-notch indigo-text fa-spin fa-10x"></i>
+                            </div>
+                            <div>
+                                Waiting for players
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <h4>Connected Players</h4>
                     <ul class="list-group-flush p-0">
-                        <li class="list-group-item" *ngFor="let player of players"><i class="fas fa-bomb mr-5"></i>
+                        <li class="list-group-item" *ngFor="let player of players"><i
+                                class="fas fa-user mr-2  fa-lg indigo-text" aria-hidden="true"></i>
                             {{player.name}}</li>
                     </ul>
                 </div>
