@@ -55,7 +55,7 @@
                             </div>
                             <label for="mafia">Mafia</label>
                             <input type="number" class="form-control" placeholder="1" formControlName="mafia" id="mafia"
-                                required>
+                                min="0" oninput="validity.valid||(value='');" required>
 
                             <button class="btn btn-primary btn-block mt-4" type="submit">Start Game</button>
                         </form>
@@ -66,6 +66,8 @@
                             <div>
                                 Waiting for players
                             </div>
+                            <button (click)="deletePlayer()" class="btn btn-primary btn-block" type="submit">Leave Game
+                            </button>
                         </div>
                     </div>
                 </div>
