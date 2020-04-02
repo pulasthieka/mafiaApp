@@ -39,6 +39,19 @@ gameRoutes.route("/add/:id").post(function(req, res) {
     });
   }
 });
+gameRoutes.route("/remove/:id&:player").delete(function(req, res) {
+  let id = req.params.id;
+  let player = req.params.player;
+  Game.update(
+    { name: id },
+    {
+      $pull: { players: { name: player } }
+    }
+  ).then(player => {
+    res.json("Removed: " + player);
+    console.log(player);
+  });
+});
 
 gameRoutes.route("/start/:id").post(function(req, res) {
   let id = req.params.id;

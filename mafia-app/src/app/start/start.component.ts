@@ -86,7 +86,7 @@ export class StartComponent implements OnInit {
   createPlayer(name) {
     console.log(name);
     // if name taken console.error();
-    if (this.players.find(el => el.name == name)) {
+    if (this.players.find(el => el.name.toLowerCase() == name.toLowerCase())) {
       // alert("Name taken");
       this.err = true;
     } else {
@@ -107,13 +107,18 @@ export class StartComponent implements OnInit {
         window.sessionStorage.setItem("playerName", res["name"]);
         this.nameChosen = true;
         this.socket.kill();
-        console.log("New Player Created", res);
+        // console.log("New Player Created", res);
       });
     }
 
     // this.playerId = window.sessionStorage.getItem('playerName');
   }
 
+  deletePlayer() {
+    this.api.removePlayer(this.playerId, this.id);
+    window.sessionStorage.removeItem("playerName");
+    window.location.reload();
+  }
   startGame(data: NgForm) {
     console.log(data);
     this.api.start(this.id, data);

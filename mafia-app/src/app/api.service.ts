@@ -21,6 +21,14 @@ export class ApiService {
   newPlayer(player, id = this.id) {
     return this.http.post(`${this.uri}/add/${id}`, player);
   }
+  removePlayer(player, id = this.id) {
+    this.http
+      .delete(`${this.uri}/remove/${id}&${player}`, {})
+      .subscribe(res => {
+        // this.getPlayers(id);
+        this.socket.kill(player);
+      });
+  }
   getGame(id) {
     return this.http.get(`${this.uri}/get/${id}`);
   }
