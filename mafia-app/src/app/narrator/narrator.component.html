@@ -2,47 +2,78 @@
 <button *ngFor="let player of players" mat-button (click)="kill(player.name)">
     Kill {{player.name}}
 </button> -->
-<div class="btn-group col-12" style="width: 100%;">
-    <button class="btn  btn-block" (click)="setDayTurn()">
-        Day Turn
-    </button>
-    <button class=" btn btn-dark btn-block" (click)="setNightTurn()">
-        Night Turn
-    </button>
-</div>
-<div class="row">
-    <div class="col-6">
-        <h2>Doctor Heals : {{doctorMsg}}</h2>
+<div class="grid">
+    <div class=" grid-item card mb-4 mx-2" style="width: 100%;">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-light" (click)="setDayTurn()">Day Turn</button>
+            <button type="button" class="btn btn-dark" (click)="setNightTurn()">Night Turn</button>
+        </div>
     </div>
-    <div class="col-6">
-        <h2>Mosquito Stings : {{mosquitoMsg}}</h2>
-        <!-- <h3>Previous Kills</h3>
-        <ol>
-            <li *ngFor="let choice of mosquitoStings">{{choice}}</li>
-        </ol> -->
+    <div class="grid-item card mx-2 mb-4">
+        <table class="table mb-0">
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Doctor Heals</td>
+                    <td>{{doctorMsg}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Mosquito Stings</td>
+                    <td>{{mosquitoMsg}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-6">
-        <mat-nav-list>
-            <h2 matSubheader> Execute </h2>
-            <mat-list-item *ngFor="let item of players" (click)="kill(item.name)">
-                <mat-icon matListIcon> highlight_off </mat-icon>
-                Kill {{item.name}}
-            </mat-list-item>
 
-        </mat-nav-list>
-    </div>
-    <div class="col-6">
-        <mat-nav-list dense>
-            <h2 matSubheader> Roles </h2>
-            <mat-list-item *ngFor="let item of roles">
-                <mat-icon *ngIf="item.dead" matListIcon> sentiment_very_dissatisfied </mat-icon>
-                <mat-icon *ngIf="!item.dead" matListIcon> sentiment_satisfied </mat-icon>
-                {{item.name}} : {{item.role}} : {{item.health}}
-            </mat-list-item>
+    <div class="grid-item card">
+        <div class="row">
+            <div class="col-12">
+                <div class="card-body">
+                    <h4 class="card-title"> Kill </h4>
+                    <div class="list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between" *ngFor="let item of players"
+                            (click)="kill(item.name)">
+                            <div>
+                                <i class="fas fa-user-alt-slash mr-4 red-text"></i>
+                                {{item.name}}
+                            </div>
+                            <span class="badge badge-danger badge-pill">{{item.count}}</span>
+                        </li>
 
-        </mat-nav-list>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card-body">
+                    <h4 class="card-title"> Roles </h4>
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Health</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of roles">
+                                <th scope="row">
+                                    <i *ngIf="item.dead" class="fas fa-skull-crossbones"></i>
+                                    <i *ngIf="!item.dead" class="fas fa-eye"></i>
+                                </th>
+                                <td>{{item.name}}</td>
+                                <td class="text-capitalize"> {{item.role}}</td>
+                                <td> <i *ngFor="let x of  ' '.repeat(item.health).split('')"
+                                        class="fas fa-heart mr-1 red-text"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
