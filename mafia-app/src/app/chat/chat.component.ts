@@ -40,6 +40,9 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.player = window.sessionStorage.getItem("playerName");
         this.api.players.subscribe((players: any[]) => {
           this.disabled = players.find(el => el.name == this.player)["dead"];
+          if (this.disabled) {
+            this.msg.disable();
+          }
         });
       } else {
         this.router.navigate(["start"]);
@@ -86,12 +89,12 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     let element = this.myScrollContainer.nativeElement;
     let atBottom =
       element.scrollHeight - element.scrollTop <= element.clientHeight + 10;
-    // console.log(atBottom,this.disableScrollDown);
+    console.log("Before", atBottom, this.disableScrollDown);
     if (this.disableScrollDown && atBottom) {
       this.disableScrollDown = false;
     } else {
       this.disableScrollDown = true;
     }
-    console.log(atBottom, this.disableScrollDown);
+    console.log("After", atBottom, this.disableScrollDown);
   }
 }

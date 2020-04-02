@@ -44,6 +44,9 @@ export class MafiaComponent implements OnInit, AfterViewChecked, OnDestroy {
             this.display = true;
           }
           this.disabled = players.find(el => el.name == this.player)["dead"];
+          if (this.disabled) {
+            this.msg.disable();
+          }
         });
       } else {
         this.router.navigate(["start"]);

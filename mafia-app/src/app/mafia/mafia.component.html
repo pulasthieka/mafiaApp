@@ -14,8 +14,9 @@
     </main>
 
     <!-- <form (keyup.enter)="sendChatMessage(msg.value)""> -->
-    <form *ngIf="!disabled" class="msger-inputarea" style="position: absolute; bottom: 10px; width: 100%;">
+    <form class="msger-inputarea" style="width: 100%;">
         <input type="text" [formControl]="msg" class="msger-input" placeholder="Enter your message...">
-        <button type="submit" (click)="sendChatMessage(msg.value)" class="msger-send-btn">Send</button>
+        <button type="submit" [ngClass]="{'disabled':disabled}" (click)="sendChatMessage(msg.value)"
+            class="msger-send-btn">Send</button>
     </form>
 </div>
