@@ -101,7 +101,7 @@ gameRoutes.route("/kill/:id&:player").post(function(req, res) {
   Game.updateOne(
     { name: id, players: { $elemMatch: { name: player } } },
     {
-      $set: { "players.$.dead": true }
+      $set: { "players.$.dead": true, "players.$.health": 0 }
     }
   ).then(player => {
     res.json("Killed: " + player);

@@ -56,7 +56,7 @@ export class ApiService {
 
   killplayer(id = this.id, player) {
     this.http.post(`${this.uri}/kill/${id}&${player}`, {}).subscribe(res => {
-      // this.getPlayers(id);
+      this.getPlayers(id);
       this.socket.kill(player);
     });
   }
