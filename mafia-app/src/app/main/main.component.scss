@@ -11,18 +11,21 @@
   background-color: #eee;
 }
 .scrolling-wrapper {
+  height: 100vh;
   display: flex;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   // scroll-padding: 50%;
   flex-wrap: nowrap;
   overflow-x: auto;
-  overflow-y: auto;
+  overflow-y: hidden;
 
   .hcard {
     flex: 0 0 auto;
-    height: 100vh;
+    height: calc(100vh - 10px);
     scroll-snap-align: start;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 

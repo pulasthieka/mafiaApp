@@ -10,21 +10,21 @@
                 </button>
             </div>
             <div [ngClass]="{
-                'hidden': night, 'visible':!night
+                'hidden': night && !disabled, 'visible':!night 
              }">
                 <app-chat></app-chat>
             </div>
-            <div *ngIf="mafia || narrator" [ngClass]="{
+            <div *ngIf="narrator" [ngClass]="{
                 'hidden': !night, 'visible':night
              }">
                 <app-mafia></app-mafia>
             </div>
-            <div *ngIf="!mafia && !narrator" [ngClass]="{
+            <div *ngIf="!mafia && !narrator && !disabled" [ngClass]="{
                 'hidden': !night, 'visible':night
              }">
                 <div class="text-center row " style="height: 90vh;">
                     <div class=" col-12 align-self-center justify-content-center">
-                        <p *ngIf="!doctor && !mosquito || disabled" class=" display-4">There's nothing to look here at
+                        <p *ngIf="!doctor && !mosquito" class=" display-4">There's nothing to look here at
                             sleep tight</p>
                         <p *ngIf="doctor || mosquito && !disabled" class=" display-4">Go to Actions for your turn </p>
                     </div>
@@ -41,26 +41,39 @@
                     <h2 class="text-capitalize">You are {{role}} </h2>
                 </div>
             </div>
-            <div class="mx-1" *ngIf="doctor && !disabled" [ngClass]="{
+            <div *ngIf="!disabled">
+                <div *ngIf="mafia" [ngClass]="{
+                    'hidden': !night, 'visible':night
+                 }">
+                    <app-mafia></app-mafia>
+                </div>
+                <div class="mx-1" *ngIf="doctor" [ngClass]="{
                 'hidden': !night, 'visible':night
              }">
-                <app-doctor></app-doctor>
-            </div>
-            <div class="mx-1" *ngIf="mosquito && !disabled" [ngClass]="{
+                    <app-doctor></app-doctor>
+                </div>
+                <div class="mx-1" *ngIf="mosquito" [ngClass]="{
                 'hidden': !night, 'visible':night
              }">
-                <app-mosquito></app-mosquito>
-            </div>
+                    <app-mosquito></app-mosquito>
+                </div>
 
-            <div class="mx-1" *ngIf=narrator>
-                <app-narrator></app-narrator>
-            </div>
-            <div class="mx-1" *ngIf="!narrator && !disabled" [ngClass]="{
+                <div class="mx-1" *ngIf=narrator>
+                    <app-narrator></app-narrator>
+                </div>
+                <div class="mx-1" *ngIf="!narrator" [ngClass]="{
                 'hidden': night, 'visible':!night
              }">
-                <app-vote></app-vote>
+                    <app-vote></app-vote>
+                </div>
             </div>
-
+            <div *ngIf="disabled">
+                <div class="text-center row " style="height: 90vh;">
+                    <div class=" col-12 align-self-center justify-content-center">
+                        <p class=" display-4">You are Dead</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

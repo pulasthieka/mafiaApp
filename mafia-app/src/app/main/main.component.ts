@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ApiService } from "../api.service";
 import { WebsocketService } from "../websocket.service";
 import { interval } from "rxjs/internal/observable/interval";
@@ -22,7 +22,7 @@ export class MainComponent implements OnInit {
   night = false;
 
   constructor(private api: ApiService, private socket: WebsocketService) {}
-
+  @ViewChild("hscroll") private hscroll: ElementRef;
   ngOnInit() {
     // if (window.sessionStorage.getItem("narrator")) {
     //   this.narrator = true;
@@ -36,8 +36,14 @@ export class MainComponent implements OnInit {
     this.socket.getTurn().subscribe(res => {
       if (res == "Night") {
         this.night = true;
+        if (!this.disabled) {
+          this.scrollRight(this.hscroll.nativeElement);
+        }
       } else {
         this.night = false;
+        if (!this.narrator) {
+          this.scrollLeft(this.hscroll.nativeElement);
+        }
       }
     });
     this.api.players.subscribe((players: any[]) => {
